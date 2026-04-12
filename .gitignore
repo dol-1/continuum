@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.local
+
+# Node
+node_modules/
+dist/
+.next/
+npm-debug.log*
+
+# Continuum-specific
+/data/
+/models/
+*.sqlite
+*.db
+mempalace_data/
+ollama_models/
+secrets/
+*.key
+*.pem
+n8n_backup/
+
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/
+*.swp
