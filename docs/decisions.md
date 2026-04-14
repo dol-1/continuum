@@ -1,34 +1,55 @@
-# Architecture Decisions
+# Architecture Decision Records
 
-## ADR-001: Gemma 4 26B A4B as Primary Local LLM
-**Status:** Accepted | **Date:** 2026-04
+## ADR-001: Primary Local LLM
 
-**Context:** Need local LLM that runs on Xeon E5-2620 v4 / 62GB RAM with usable speed for background scanning and consolidation.
+**Decision:** Gemma 4 26B via Ollama as the primary local LLM.
 
-**Decision:** Gemma 4 26B A4B (active-4B MoE variant).
+**Reasoning:** Confirmed 7+ tokens/second on available hardware (62GB RAM).
+Sufficient performance for real-time interaction and background processing.
 
-**Rationale:** Benchmarked at 7+ tok/s on target hardware — sufficient for background work. Strong multilingual (Georgian + English). Apache 2.0 license. Fits comfortably in RAM alongside other VM workloads.
-
-**Consequences:** No GPU required. Real-time scanner feasible. Heavy reasoning still offloadable to OpenRouter/DeepSeek when needed.
+**Status:** Accepted
 
 ---
 
-## ADR-002: Gemma as Background Scanner (Dual Mode)
+## ADR-002: Background Scanner
+
+**Decision:** Gemma 4 26B dual-mode background scanner using the same Ollama instance.
+
+**Modes:**
+- Real-time tagging of incoming memory atoms
+- Nightly consolidation of accumulated knowledge
+
 **Status:** Accepted
-
-**Decision:** Single Gemma instance serves both real-time tagging and nightly consolidation.
-
-**Rationale:** Avoids model-swap overhead. Same context window, same prompt library. Mode switch is just a different system prompt + batch size.
-
-**Consequences:** Scheduler must prevent overlap between real-time and consolidation runs. n8n handles queue.
 
 ---
 
-## ADR-003: Memory Consolidation Engine = Phase 1 Core
+## ADR-003: Memory Consolidation Engine
+
+**Decision:** Auto Dream pattern as the core consolidation algorithm.
+
+**Pattern:** orient → gather → consolidate → prune
+
+**Reasoning:** Mirrors human sleep-cycle memory consolidation. Runs nightly
+to surface connections, remove redundancy, and strengthen important memories.
+
 **Status:** Accepted
 
-**Decision:** Build the Auto Dream four-phase engine (orient/gather/consolidate/prune) as a Phase 1 deliverable, not a Phase 3+ enhancement.
+---
 
-**Rationale:** Without consolidation, captured atoms become noise within weeks. The engine *is* the product — capture alone is solved territory.
+## ADR-004: Memory Backend
 
-**Consequences:** Phase 1 timeline tighter. Justified — defers other features but de-risks the core value proposition.
+**Decision:** mcp-memory-service via pip install in Python venv at /opt/continuum/venv/
+
+**Reasoning:** Clean isolation from system Python. Easy to update and reproduce.
+
+**Status:** Accepted
+
+---
+
+## ADR-005: Memory Dashboard
+
+**Decision:** mcp-memory-service native web UI (port 8000) as the memory dashboard.
+
+**Reasoning:** No additional tooling required. Accessible via memory.velocycle.us
+
+**Status:** Accepted
