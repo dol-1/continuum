@@ -1,58 +1,56 @@
-# 🧠 Continuum
+# Continuum
 
-> Personal "second brain" integration layer — local-first, open source.
+A local-first personal memory and knowledge integration layer.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-alpha-orange.svg)]()
+Continuum connects your AI conversations, browser activity, and notes into
+a single searchable memory system — running entirely on your own hardware.
 
----
+## What It Does
 
-**Continuum** is a personal "second brain" integration layer that unifies MemPalace, Page Assist, local Gemma 4 26B, n8n, and a Telegram bot into one living memory system.
-
-## Why?
-
-Modern AI tools (Claude, ChatGPT, Gemini) are brilliant but forgetful. Every conversation starts from zero. Continuum captures those conversations, analyzes them locally with Gemma, and builds a personal, searchable, permanent memory layer that grows with you.
-
-## Core Features
-
-- 🔒 **Local-first** — your data never leaves your server
-- 🌐 **Multi-AI capture** — Claude.ai, ChatGPT, and Gemini in one place
-- 🧬 **Memory Consolidation Engine** — Anthropic Auto Dream pattern (orient / gather / consolidate / prune)
-- 📱 **Telegram integration** — capture from anywhere
-- 👁️ **Obsidian-compatible** — optional desktop viewer
-- 🔌 **Modular** — every layer is replaceable
+- Captures context from multiple AI assistants (Claude, ChatGPT, Gemini)
+- Stores and indexes everything locally using ChromaDB
+- Runs a local LLM (Gemma 4 26B) for nightly memory consolidation
+- Provides a web dashboard for memory exploration
+- Integrates with Telegram for mobile capture
 
 ## Architecture
 
-Continuum is a 5-layer integration system:
+    Browser (Page Assist) ──┐
+    Telegram Bot ───────────┼──► n8n Orchestration ──► mcp-memory-service ──► ChromaDB
+    AI Conversations ───────┘         │
+                                      ▼
+                              Gemma 4 26B (Ollama)
+                              Background Scanner +
+                              Memory Consolidation
 
-1. **Infrastructure** — Ollama, Docker, Cloudflare Tunnel
-2. **Memory Core** — MemPalace + vector store
-3. **Intelligence** — Gemma 4 26B background scanner
-4. **Orchestration** — n8n workflows
-5. **Interfaces** — Page Assist, Telegram, Obsidian
+## Stack
 
-See [docs/architecture.md](docs/architecture.md) for full diagrams and data flow.
+| Component | Technology |
+|-----------|------------|
+| Local LLM | Gemma 4 26B via Ollama |
+| Memory Backend | mcp-memory-service + ChromaDB |
+| Orchestration | n8n |
+| Browser Capture | Page Assist |
+| Mobile Capture | Telegram @VeloCycleBot |
+| Dashboard | mcp-memory-service native UI |
 
-## Roadmap
+## Hardware Requirements
 
-6–7 weeks, 5 phases. See [docs/roadmap.md](docs/roadmap.md).
+- RAM: 32GB minimum, 62GB recommended
+- Storage: 100GB+
+- OS: Ubuntu 24.04 recommended
 
-## Built On
+## Quick Start
 
-- [MemPalace](https://github.com/milla-jovovich/mempalace) — memory core
-- [Page Assist](https://github.com/n4ze3m/page-assist) — browser capture
-- [Ollama](https://ollama.ai) + Gemma 4 26B — local inference
-- [n8n](https://n8n.io) — workflow orchestration
+    git clone https://github.com/dol-1/continuum
+    cd continuum
+    cp .env.example .env
+    docker compose up -d
 
-## Status
+## Project Status
 
-Alpha. Under active development. Not yet recommended for production use.
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+Active Development — Phase 0
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT 2026 dol-1

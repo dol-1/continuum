@@ -1,25 +1,37 @@
 # Contributing to Continuum
 
-Thanks for your interest! Continuum is open source (MIT) and welcomes contributors.
+Thank you for your interest in Continuum. This project is currently in active development. Contributions are welcome.
 
-## Ways to Contribute
-- 🐛 Bug reports — open an issue with reproduction steps
-- 💡 Feature ideas — open a discussion first
-- 🌍 Translations — Georgian/English are first-class; others welcome
-- 📝 Docs improvements — always appreciated
-- 🧪 Test cases — especially for Georgian text handling
+## Language Policy
 
-## Dev Setup
-1. Fork & clone
-2. Install Ollama + pull `gemma3:26b` and `nomic-embed-text`
-3. `docker compose up` for MemPalace + n8n
-4. See `docs/architecture.md`
+- All code, documentation, commits, and issues: **English only**
+- Internal developer communication: any language
 
-## PR Guidelines
-- One feature per PR
-- Keep commits small and descriptive
-- Update relevant docs
-- Bilingual commit messages welcome (ka/en)
+## How to Contribute
 
-## Code of Conduct
-Be kind. Assume good faith. No harassment.
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/your-feature`
+3. Commit your changes: `git commit -m "feat: description"`
+4. Push to the branch: `git push origin feature/your-feature`
+5. Open a Pull Request
+
+## Commit Message Format
+
+Use this format for all commits:
+
+    type: short description
+
+    Types: feat, fix, docs, chore, refactor, test
+
+## Code Style
+
+- Python: PEP 8
+- Use virtual environments (venv)
+- Never commit .env files or data directories
+
+## Reporting Issues
+
+Open a GitHub Issue with:
+- Clear description of the problem
+- Steps to reproduce
+- Expected vs actual behavior
