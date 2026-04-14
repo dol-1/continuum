@@ -1,31 +1,37 @@
 # Python
 __pycache__/
 *.py[cod]
-.venv/
+*.pyo
+*.pyd
+.Python
 venv/
+.venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# Environment
 .env
-.env.local
+.env.*
+!.env.example
+
+# Continuum data
+data/chroma_db/
+data/backups/
+logs/
 
 # Node
 node_modules/
-dist/
-.next/
 npm-debug.log*
 
-# Continuum-specific
-/data/
-/models/
-*.sqlite
-*.db
-mempalace_data/
-ollama_models/
-secrets/
-*.key
-*.pem
-n8n_backup/
-
-# OS / IDE
+# OS
 .DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
 .vscode/
 .idea/
 *.swp
+*.swo
