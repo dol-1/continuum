@@ -44,6 +44,32 @@ to surface connections, remove redundancy, and strengthen important memories.
 
 **Status:** Accepted
 
+### Revision — 2026-04-25: Storage backend canonicalized
+
+The original ADR-004 was silent on the underlying storage backend within
+mcp-memory-service. This revision makes the choice explicit.
+
+**Decision:** `sqlite_vec` is the canonical storage backend for Phase 1.
+
+**Context:** chromadb installation failed during Phase 0 deployment.
+`sqlite_vec` (bundled with mcp-memory-service) was used as the fallback
+and confirmed working in production.
+
+**Configuration:**
+- `MCP_MEMORY_STORAGE_BACKEND=sqlite_vec`
+- Config file: `/opt/continuum/config/.env`
+- ChromaDB dependency dropped.
+
+**Verification (Phase 1 Sprint 1.1):**
+- Memory create: success
+- Semantic search: 117ms, similarity score 0.806
+- 6 memories persisted across service restarts
+- API endpoint: `http://localhost:8100/api/` (POST /api/memories, POST /api/search)
+
+**Consequences:** No further action required. `sqlite_vec` is the default
+fallback in `mcp_memory_service.config`. `dependencies.md` updated to
+reflect the canonical backend.
+
 ---
 
 ## ADR-005: Memory Dashboard

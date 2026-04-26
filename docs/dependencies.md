@@ -18,8 +18,10 @@
 | Ollama | latest | 11434 | - |
 | mcp-memory-service | latest (pip) | 8000 | memory.velocycle.us |
 | Open WebUI | latest | 3000 | chat.velocycle.us |
-| n8n | latest | 5678 | - |
-| ChromaDB | via mcp-memory-service | - | - |
+| n8n | latest | 5678 | n8n.velocycle.us |
+
+> **Storage backend** for `mcp-memory-service`: `sqlite_vec` (canonical — see
+> ADR-004 Revision). ChromaDB dependency dropped in Phase 1.
 
 ## Models
 
@@ -40,8 +42,7 @@
 
 ## Environment Variables
 
-    MCP_MEMORY_STORAGE_BACKEND=chroma
-    MCP_MEMORY_CHROMA_PATH=/opt/continuum/data/chroma_db
+    MCP_MEMORY_STORAGE_BACKEND=sqlite_vec
     MCP_MEMORY_BACKUPS_PATH=/opt/continuum/data/backups
     MCP_HTTP_ENABLED=true
     MCP_HTTP_PORT=8000
